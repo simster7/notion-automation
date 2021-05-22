@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/simster7/notion-automation/client"
 	"github.com/simster7/notion-automation/common"
+	log "github.com/sirupsen/logrus"
 )
 
 type CreateJournalEntry struct{}
@@ -16,6 +17,17 @@ func GetCreateJournalEntry() *CreateJournalEntry {
 }
 
 func (c *CreateJournalEntry) Do(ctx context.Context, notion *client.Client) error {
+
+	exists, err := checkIfEntryExists(ctx, notion)
+	if err != nil {
+		return err
+	}
+
+	if exists {
+		log.Warn("journal entry already exists, skipping...")
+		return nil
+	}
+
 	props := client.DatabasePageProperties{
 		"Name": client.DatabasePageProperty{
 			Type: client.DBPropTypeTitle,
@@ -35,8 +47,8 @@ func (c *CreateJournalEntry) Do(ctx context.Context, notion *client.Client) erro
 		},
 	}
 
-	_, err := notion.CreatePage(ctx, client.CreatePageParams{
-		ParentID:   common.JournalDbId,
+	_, err = notion.CreatePage(ctx, client.CreatePageParams{
+		ParentID:               common.JournalDbId,
 		DatabasePageProperties: &props,
 	})
 
@@ -45,4 +57,21 @@ func (c *CreateJournalEntry) Do(ctx context.Context, notion *client.Client) erro
 	}
 
 	return nil
+}
+
+func checkIfEntryExists(ctx context.Context, notion *client.Client) (bool, error) {
+	res, err := notion.QueryDatabase(ctx, common.JournalDbId, &client.DatabaseQuery{
+		Filter: client.DatabaseQueryFilter{
+			Property: "Date",
+			Date: &client.DateDatabaseQueryFilter{
+				Equals: common.GetTime().NotionDate(),
+			},
+		},
+	})
+
+	if err != nil {
+		return false, fmt.Errorf("failed to validate journal entry did not alread exist: %w", err)
+	}
+
+	return len(res.Results) > 0, nil
 }

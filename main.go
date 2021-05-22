@@ -2,14 +2,17 @@ package main
 
 import (
 	"context"
+	"os"
+	"sync"
+
+	log "github.com/sirupsen/logrus"
+
 	"github.com/simster7/notion-automation/client"
 	"github.com/simster7/notion-automation/common"
 	"github.com/simster7/notion-automation/tasks"
-	log "github.com/sirupsen/logrus"
-	"sync"
 )
 
-var notion = client.NewClient("")
+var notion = client.NewClient(os.Getenv("NOTION_TOKEN"))
 
 func main() {
 	common.SetTime()
