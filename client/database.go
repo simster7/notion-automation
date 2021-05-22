@@ -4,8 +4,8 @@ package client
 // See: https://developers.notion.com/reference/database
 type Database struct {
 	ID             string             `json:"id"`
-	CreatedTime    string          `json:"created_time"`
-	LastEditedTime string          `json:"last_edited_time"`
+	CreatedTime    string             `json:"created_time"`
+	LastEditedTime string             `json:"last_edited_time"`
 	Title          []RichText         `json:"title"`
 	Properties     DatabaseProperties `json:"properties"`
 }
@@ -132,19 +132,19 @@ type MultiSelectDatabaseQueryFilter struct {
 }
 
 type DateDatabaseQueryFilter struct {
-	Equals     string `json:"equals,omitempty"`
-	Before     string `json:"before,omitempty"`
-	After      string `json:"after,omitempty"`
-	OnOrBefore string `json:"on_or_before,omitempty"`
-	OnOrAfter  string `json:"on_or_after,omitempty"`
-	IsEmpty    bool       `json:"is_empty,omitempty"`
-	IsNotEmpty bool       `json:"is_not_empty,omitempty"`
-	PastWeek   *struct{}  `json:"past_week,omitempty"`
-	PastMonth  *struct{}  `json:"past_month,omitempty"`
-	PastYear   *struct{}  `json:"past_year,omitempty"`
-	NextWeek   *struct{}  `json:"next_week,omitempty"`
-	NextMonth  *struct{}  `json:"next_month,omitempty"`
-	NextYear   *struct{}  `json:"next_year,omitempty"`
+	Equals     string    `json:"equals,omitempty"`
+	Before     string    `json:"before,omitempty"`
+	After      string    `json:"after,omitempty"`
+	OnOrBefore string    `json:"on_or_before,omitempty"`
+	OnOrAfter  string    `json:"on_or_after,omitempty"`
+	IsEmpty    bool      `json:"is_empty,omitempty"`
+	IsNotEmpty bool      `json:"is_not_empty,omitempty"`
+	PastWeek   *struct{} `json:"past_week,omitempty"`
+	PastMonth  *struct{} `json:"past_month,omitempty"`
+	PastYear   *struct{} `json:"past_year,omitempty"`
+	NextWeek   *struct{} `json:"next_week,omitempty"`
+	NextMonth  *struct{} `json:"next_month,omitempty"`
+	NextYear   *struct{} `json:"next_year,omitempty"`
 }
 
 type PeopleDatabaseQueryFilter struct {

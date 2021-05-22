@@ -11,8 +11,8 @@ import (
 // See: https://developers.notion.com/reference/page
 type Page struct {
 	ID             string     `json:"id"`
-	CreatedTime    string  `json:"created_time"`
-	LastEditedTime string  `json:"last_edited_time"`
+	CreatedTime    string     `json:"created_time"`
+	LastEditedTime string     `json:"last_edited_time"`
 	Parent         PageParent `json:"parent"`
 	Archived       bool       `json:"archived"`
 

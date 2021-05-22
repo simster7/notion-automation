@@ -3,12 +3,12 @@ package client
 // Block represents content on the Notion platform.
 // See: https://developers.notion.com/reference/block
 type Block struct {
-	Object         string     `json:"object"`
-	ID             string     `json:"id,omitempty"`
-	Type           BlockType  `json:"type"`
-	CreatedTime    string `json:"created_time,omitempty"`
-	LastEditedTime string `json:"last_edited_time,omitempty"`
-	HasChildren    bool       `json:"has_children,omitempty"`
+	Object         string    `json:"object"`
+	ID             string    `json:"id,omitempty"`
+	Type           BlockType `json:"type"`
+	CreatedTime    string    `json:"created_time,omitempty"`
+	LastEditedTime string    `json:"last_edited_time,omitempty"`
+	HasChildren    bool      `json:"has_children,omitempty"`
 
 	Paragraph        *RichTextBlock `json:"paragraph,omitempty"`
 	Heading1         *Heading       `json:"heading_1,omitempty"`

@@ -34,7 +34,7 @@ type Mention struct {
 }
 
 type Date struct {
-	Start string  `json:"start"`
+	Start string `json:"start"`
 	End   string `json:"end,omitempty"`
 }
 
