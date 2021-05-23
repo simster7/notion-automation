@@ -18,7 +18,7 @@ func main() {
 	common.SetTime()
 	ctx := context.Background()
 
-	taskQueue := []tasks.Task{tasks.GetCreateJournalEntry(), tasks.GetDoOnToday()}
+	taskQueue := []tasks.Task{tasks.GetCreateJournalEntry(), tasks.GetDoOnToday(), tasks.GetRepeatTasks()}
 	var wg sync.WaitGroup
 	wg.Add(len(taskQueue))
 

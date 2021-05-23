@@ -17,7 +17,6 @@ func GetCreateJournalEntry() *CreateJournalEntry {
 }
 
 func (c *CreateJournalEntry) Do(ctx context.Context, notion *client.Client) error {
-
 	exists, err := checkIfEntryExists(ctx, notion)
 	if err != nil {
 		return err
