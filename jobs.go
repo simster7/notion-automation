@@ -6,8 +6,6 @@ import (
 	"os"
 	"sync"
 
-	log "github.com/sirupsen/logrus"
-
 	"github.com/simster7/notion-automation/client"
 	"github.com/simster7/notion-automation/common"
 	"github.com/simster7/notion-automation/tasks"
@@ -17,6 +15,9 @@ var notion = client.NewClient(os.Getenv("NOTION_TOKEN"))
 
 func Nightly(_ http.ResponseWriter, _ *http.Request) {
 	common.SetTime()
+	common.InitLogger("nightly")
+	log := common.GetLogger()
+	log.Infof("starting nightly job...")
 	ctx := context.Background()
 
 	taskQueue := []tasks.Task{tasks.GetCreateJournalEntry(), tasks.GetDoOnToday(), tasks.GetRepeatTasks()}
@@ -25,11 +26,12 @@ func Nightly(_ http.ResponseWriter, _ *http.Request) {
 
 	for _, task := range taskQueue {
 		task := task
+		log.Infof("starting task '%s'", task.GetName())
 		go func() {
 			defer wg.Done()
 			err := task.Do(ctx, notion)
 			if err != nil {
-				log.Errorf("cannot complete task: %s", err)
+				log.Errorf("error completing task '%s': %s", task.GetName(), err)
 			}
 		}()
 	}

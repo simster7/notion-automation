@@ -7,4 +7,5 @@ import (
 
 type Task interface {
 	Do(context.Context, *client.Client) error
+	GetName() string
 }
