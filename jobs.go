@@ -1,7 +1,8 @@
-package main
+package jobs
 
 import (
 	"context"
+	"net/http"
 	"os"
 	"sync"
 
@@ -14,7 +15,7 @@ import (
 
 var notion = client.NewClient(os.Getenv("NOTION_TOKEN"))
 
-func main() {
+func Nightly(_ http.ResponseWriter, _ *http.Request) {
 	common.SetTime()
 	ctx := context.Background()
 

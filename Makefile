@@ -12,3 +12,6 @@ lint:
 clean:
 	rm -rf dist
 
+.PHONY: deploy
+deploy:
+	gcloud functions deploy Nightly --runtime go113 --trigger-http --allow-unauthenticated --set-env-vars "NOTION_TOKEN=$(cat notion_secret.txt)"
