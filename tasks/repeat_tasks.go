@@ -92,6 +92,10 @@ func createRepeatedTask(ctx context.Context, notion *client.Client, logger *log.
 	switch cadence {
 	case "Daily":
 		newDueBy, err = nextInstance(anchorDate, 0, 0, 1)
+	case "2 Days":
+		newDueBy, err = nextInstance(anchorDate, 0, 0, 2)
+	case "3 Days":
+		newDueBy, err = nextInstance(anchorDate, 0, 0, 3)
 	case "Weekly":
 		newDueBy, err = nextInstance(anchorDate, 0, 0, 7)
 	case "Monthly":
