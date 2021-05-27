@@ -134,6 +134,12 @@ func createRepeatedTask(ctx context.Context, notion *client.Client, logger *log.
 				Start: newDueBy,
 			},
 		},
+		"Repeat": client.DatabasePageProperty{
+			Type: client.DBPropTypeSelect,
+			Select: &client.SelectOptions{
+				Name: cadence,
+			},
+		},
 	}
 
 	_, err = notion.CreatePage(ctx, client.CreatePageParams{
