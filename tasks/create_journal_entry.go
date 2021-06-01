@@ -47,7 +47,7 @@ func (c *CreateJournalEntry) Do(ctx context.Context, notion *client.Client) erro
 			Title: []client.RichText{
 				{
 					Text: &client.Text{
-						Content: common.GetTime().Format("2 Jan 2006"),
+						Content: common.GetTime().Format("2 January 2006"),
 					},
 				},
 			},
