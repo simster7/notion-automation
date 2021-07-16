@@ -58,7 +58,7 @@ func (r *RepeatTasks) Do(ctx context.Context, notion *client.Client) error {
 	}
 	logger.Info("database query successful")
 
-	return common.ExecutePages(res.Results, func(page client.Page) error {
+	return common.ExecutePages(res.Results, func(page client.Page, _ int) error {
 		return createRepeatedTask(ctx, notion, logger, page)
 	})
 }
