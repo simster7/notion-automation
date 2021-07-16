@@ -66,7 +66,7 @@ func (c *CreateJournalEntry) Do(ctx context.Context, notion *client.Client) erro
 		},
 	}
 
-	logger.Info("creating journal entry for '%s'", date)
+	logger.Infof("creating journal entry for '%s'", date)
 	_, err = notion.CreatePage(ctx, client.CreatePageParams{
 		ParentID:               common.JournalDbId,
 		DatabasePageProperties: &props,

@@ -5,12 +5,14 @@ import (
 	"time"
 )
 
+const TimeZone = "America/Los_Angeles"
+
 type NotionTime struct {
 	time time.Time
 }
 
 func newNotionTime() NotionTime {
-	loc, err := time.LoadLocation("America/Los_Angeles")
+	loc, err := time.LoadLocation(TimeZone)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -31,6 +33,14 @@ func (e NotionTime) Format(format string) string {
 
 func (e NotionTime) AddDate(year, month, day int) NotionTime {
 	return NotionTime{time: e.time.AddDate(year, month, day)}
+}
+
+func (e NotionTime) GetCalendarEventTimes(index int) (string, string) {
+	t := e.time
+	endIndex := index + 1
+	startTime := time.Date(t.Year(), t.Month(), t.Day(), 8+index/2, 30*(index%2), 0, 0, t.Location())
+	endTime := time.Date(t.Year(), t.Month(), t.Day(), 8+endIndex/2, 30*(endIndex%2), 0, 0, t.Location())
+	return startTime.Format(time.RFC3339), endTime.Format(time.RFC3339)
 }
 
 var execTime NotionTime

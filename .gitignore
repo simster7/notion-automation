@@ -16,5 +16,4 @@
 
 .idea
 dist/
-notion_secret.txt
-
+secrets/
