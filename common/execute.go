@@ -13,8 +13,8 @@ func ExecutePages(pages []client.Page, fn ExecutePageFunc) error {
 	wg.Add(len(pages))
 
 	for i, page := range pages {
-		page := page
 		i := i
+		page := page
 		go func() {
 			defer wg.Done()
 			err := fn(page, i)

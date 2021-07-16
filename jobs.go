@@ -20,7 +20,7 @@ func Nightly(_ http.ResponseWriter, _ *http.Request) {
 	log.Infof("starting nightly job...")
 	ctx := context.Background()
 
-	taskQueue := []tasks.Task{tasks.GetCreateJournalEntry(), tasks.GetDoOnToday(), tasks.GetRepeatTasks()}
+	taskQueue := []tasks.Task{tasks.GetCreateJournalEntry(), tasks.GetDoOnToday(), tasks.GetRepeatTasks(), tasks.GetAddCalendarEvents()}
 	var wg sync.WaitGroup
 	wg.Add(len(taskQueue))
 
