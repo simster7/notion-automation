@@ -53,6 +53,7 @@ type DatabasePageProperty struct {
 	Formula     *FormulaMetadata  `json:"formula,omitempty"`
 	Relation    *RelationMetadata `json:"relation,omitempty"`
 	Rollup      *RollupMetadata   `json:"rollup,omitempty"`
+	Checkbox    *bool             `json:"checkbox,omitempty"`
 }
 
 // CreatePageParams are the params used for creating a page.
