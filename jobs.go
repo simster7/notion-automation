@@ -20,7 +20,7 @@ func Nightly(_ http.ResponseWriter, _ *http.Request) {
 	log.Infof("starting nightly job...")
 	ctx := context.Background()
 
-	taskQueue := []tasks.Task{tasks.GetCreateJournalEntry(), tasks.GetDoOnToday(), tasks.GetRepeatTasks(), tasks.GetAddCalendarEvents()}
+	taskQueue := []tasks.Task{tasks.GetCreateJournalEntry(), tasks.GetDoOnToday(), tasks.GetRepeatTasks()}
 	var wg sync.WaitGroup
 	wg.Add(len(taskQueue))
 
@@ -37,4 +37,9 @@ func Nightly(_ http.ResponseWriter, _ *http.Request) {
 	}
 
 	wg.Wait()
+
+	err := tasks.GetAddCalendarEvents().Do(ctx, notion)
+	if err != nil {
+		log.Errorf("error completing task 'AddCalendarEvents': %s", err)
+	}
 }
