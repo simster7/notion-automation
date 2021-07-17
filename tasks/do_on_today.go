@@ -68,10 +68,6 @@ func setTaskDoOnToToday(ctx context.Context, notion *client.Client, logger *log.
 					Start: dueOn,
 				},
 			},
-			"Must": client.DatabasePageProperty{
-				Type:     client.DBPropTypeCheckbox,
-				Checkbox: client.BoolPtr(false),
-			},
 		},
 	})
 	if err != nil {

@@ -40,7 +40,7 @@ func (a AddCalendarEvents) Do(ctx context.Context, notion *client.Client) error 
 
 	// Don't forget to accept calendar (only necessary once)
 	//
-	//		srv.CalendarList.Insert(&calendar.CalendarListEntry{Id: "[Can be found in Calendar Sharing Settings]"}).Do()
+	//	srv.CalendarList.Insert(&calendar.CalendarListEntry{Id: "[Can be found in Calendar Sharing Settings]"}).Do()
 	//
 
 	logger.Info("querying task database for today's must tasks")
@@ -83,10 +83,8 @@ func createMustEvent(cal *calendar.Service, logger *log.Entry, task client.Page,
 	taskLogger.Infof("creating calendar event for must task")
 
 	start, end := common.GetTime().GetCalendarEventTimes(index)
-	fmt.Println(index, start, end)
-	taskTitle := task.Properties.(client.DatabasePageProperties)["Name"].Title[0].PlainText
 	_, err := cal.Events.Insert(calendarId, &calendar.Event{
-		Summary: fmt.Sprintf("[MUST] %s", taskTitle),
+		Summary: fmt.Sprintf("[MUST] %s", common.GetDataBasePageName(task)),
 		Start:   &calendar.EventDateTime{DateTime: start, TimeZone: common.TimeZone},
 		End:     &calendar.EventDateTime{DateTime: end, TimeZone: common.TimeZone},
 	}).Do()
