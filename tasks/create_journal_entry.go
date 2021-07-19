@@ -2,9 +2,10 @@ package tasks
 
 import (
 	"context"
+	log "github.com/sirupsen/logrus"
+
 	"github.com/simster7/notion-automation/client"
 	"github.com/simster7/notion-automation/common"
-	log "github.com/sirupsen/logrus"
 )
 
 type CreateJournalEntry struct{}

@@ -4,12 +4,14 @@ import (
 	"context"
 	"fmt"
 
-	//"fmt"
-	"github.com/simster7/notion-automation/client"
-	"github.com/simster7/notion-automation/common"
 	log "github.com/sirupsen/logrus"
 	"google.golang.org/api/calendar/v3"
+	"google.golang.org/api/googleapi"
+	"net/http"
 	"os"
+
+	"github.com/simster7/notion-automation/client"
+	"github.com/simster7/notion-automation/common"
 )
 
 var calendarId = os.Getenv("CALENDAR_ID")
@@ -84,11 +86,16 @@ func createMustEvent(cal *calendar.Service, logger *log.Entry, task client.Page,
 
 	start, end := common.GetTime().GetCalendarEventTimes(index)
 	_, err := cal.Events.Insert(calendarId, &calendar.Event{
+		Id:      common.MD5(task.ID),
 		Summary: fmt.Sprintf("[MUST] %s", common.GetDataBasePageName(task)),
 		Start:   &calendar.EventDateTime{DateTime: start, TimeZone: common.TimeZone},
 		End:     &calendar.EventDateTime{DateTime: end, TimeZone: common.TimeZone},
 	}).Do()
 	if err != nil {
+		if err.(*googleapi.Error).Code == http.StatusConflict {
+			taskLogger.Warn("event already exists, skipping...")
+			return nil
+		}
 		return common.LogAndError(taskLogger, "failed to create must event: %s", err)
 	}
 	taskLogger.Info("must event creation successful")

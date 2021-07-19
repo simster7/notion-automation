@@ -3,10 +3,12 @@ package tasks
 import (
 	"context"
 	"fmt"
+	"time"
+
+	log "github.com/sirupsen/logrus"
+
 	"github.com/simster7/notion-automation/client"
 	"github.com/simster7/notion-automation/common"
-	log "github.com/sirupsen/logrus"
-	"time"
 )
 
 type RepeatTasks struct{}

@@ -2,10 +2,11 @@ package tasks
 
 import (
 	"context"
-	"github.com/simster7/notion-automation/client"
-	"github.com/simster7/notion-automation/common"
 	"os"
 	"testing"
+
+	"github.com/simster7/notion-automation/client"
+	"github.com/simster7/notion-automation/common"
 )
 
 func TestAddCalendarEvents_Do(t *testing.T) {

@@ -1,9 +1,11 @@
 package common
 
 import (
-	"github.com/simster7/notion-automation/client"
-	log "github.com/sirupsen/logrus"
 	"sync"
+
+	log "github.com/sirupsen/logrus"
+
+	"github.com/simster7/notion-automation/client"
 )
 
 type ExecutePageFunc func(client.Page, int) error
