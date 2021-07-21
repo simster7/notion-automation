@@ -86,7 +86,8 @@ func createMustEvent(cal *calendar.Service, logger *log.Entry, task client.Page,
 
 	start, end := common.GetTime().GetCalendarEventTimes(index)
 	_, err := cal.Events.Insert(calendarId, &calendar.Event{
-		Id:      common.MD5(task.ID),
+		// Hash with current date to uniquify musts at each day
+		Id:      common.MD5(task.ID + common.GetTime().NotionDate()),
 		Summary: fmt.Sprintf("[MUST] %s", common.GetDataBasePageName(task)),
 		Start:   &calendar.EventDateTime{DateTime: start, TimeZone: common.TimeZone},
 		End:     &calendar.EventDateTime{DateTime: end, TimeZone: common.TimeZone},
