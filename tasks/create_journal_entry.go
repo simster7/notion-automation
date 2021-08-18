@@ -50,6 +50,7 @@ func (c *CreateJournalEntry) Do(ctx context.Context, notion *client.Client) erro
 					Text: &client.Text{
 						Content: common.GetTime().Format("2 January 2006"),
 					},
+					Type: client.RichTextTypeText,
 				},
 			},
 		},
